@@ -1,0 +1,148 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{nips13submit_e,times}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{chronology}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{charter}
+\usepackage{environ}
+\usepackage{tikz}
+\usetikzlibrary{calc,matrix}
+%\documentstyle[nips13submit_09,times,art10]{article} % For LaTeX 2.09
+
+
+\title{Applying Reinforcement Learning to Wordle}
+
+
+\author{
+Julius Breindl \\
+CSE, University at Buffalo\\
+\texttt{jbreindl@buffalo.edu} \\
+\And
+Andrew Sipper \\
+CSE, University at Buffalo\\
+\texttt{asipper@buffalo.edu} \\
+\And
+Vivek Shankar \\
+CSE, University at Buffalo\\
+\texttt{shankar9@buffalo.edu} \\
+}
+
+
+\makeatletter
+\let\matamp=&
+\catcode`\&=13
+\makeatletter
+\def&{\iftikz@is@matrix
+  \pgfmatrixnextcell
+  \else
+  \matamp
+  \fi}
+\makeatother
+
+\newcounter{lines}
+\def\endlr{\stepcounter{lines}\\}
+
+\newcounter{vtml}
+\setcounter{vtml}{0}
+
+\newif\ifvtimelinetitle
+\newif\ifvtimebottomline
+\tikzset{description/.style={
+  column 2/.append style={#1}
+ },
+ timeline color/.store in=\vtmlcolor,
+ timeline color=red!80!black,
+ timeline color st/.style={fill=\vtmlcolor,draw=\vtmlcolor},
+ use timeline header/.is if=vtimelinetitle,
+ use timeline header=false,
+ add bottom line/.is if=vtimebottomline,
+ add bottom line=false,
+ timeline title/.store in=\vtimelinetitle,
+ timeline title={},
+ line offset/.store in=\lineoffset,
+ line offset=4pt,
+}
+
+\NewEnviron{vtimeline}[1][]{%
+\setcounter{lines}{1}%
+\stepcounter{vtml}%
+\begin{tikzpicture}[column 1/.style={anchor=east},
+ column 2/.style={anchor=west},
+ text depth=0pt,text height=1ex,
+ row sep=1ex,
+ column sep=1em,
+ #1
+]
+\matrix(vtimeline\thevtml)[matrix of nodes]{\BODY};
+\pgfmathtruncatemacro\endmtx{\thelines-1}
+\path[timeline color st] 
+($(vtimeline\thevtml-1-1.north east)!0.5!(vtimeline\thevtml-1-2.north west)$)--
+($(vtimeline\thevtml-\endmtx-1.south east)!0.5!(vtimeline\thevtml-\endmtx-2.south west)$);
+\foreach \x in {1,...,\endmtx}{
+ \node[circle,timeline color st, inner sep=0.15pt, draw=white, thick] 
+ (vtimeline\thevtml-c-\x) at 
+ ($(vtimeline\thevtml-\x-1.east)!0.5!(vtimeline\thevtml-\x-2.west)$){};
+ \draw[timeline color st](vtimeline\thevtml-c-\x.west)--++(-3pt,0);
+ }
+ \ifvtimelinetitle%
+  \draw[timeline color st]([yshift=\lineoffset]vtimeline\thevtml.north west)--
+  ([yshift=\lineoffset]vtimeline\thevtml.north east);
+  \node[anchor=west,yshift=16pt,font=\large]
+   at (vtimeline\thevtml-1-1.north west) 
+   {\textsc{Timeline \thevtml}: \textit{\vtimelinetitle}};
+ \else%
+  \relax%
+ \fi%
+ \ifvtimebottomline%
+   \draw[timeline color st]([yshift=-\lineoffset]vtimeline\thevtml.south west)--
+  ([yshift=-\lineoffset]vtimeline\thevtml.south east);
+ \else%
+   \relax%
+ \fi%
+\end{tikzpicture}
+}
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\nipsfinalcopy % Uncomment for camera-ready version
+
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  Recently, the game Wordle, by Josh Wardle, has become quite popular. It is a game in which the player gets 6
+  guesses to determine a random 5 letter word. We propose development of a reinforcement learning model that will
+  be capable of playing the game.
+\end{abstract}
+\section{Introduction}
+Applying reinforcement learning techniques to solve games is a popular project topic . Reinforcement
+learning has also been used to solve Scrabble --- a game fundamentally similar to Wordle.
+
+There are existing automated solutions to Wordle, the most prominent of which being the 3 blue 1 brown solution.
+There is also a Reinforcement Learning version that exists that uses DQN and A2C.
+
+We intend to develop an OpenAI gym environment to train the agent in, and then create multiple agents to compare
+performance of different algorithms on this problem. Finally, just for fun, we will attempt to create a wrapper
+that makes the agent able to play the acutal Wordle game on the website, as well as clones of the game.
+
+\section{Project timeline}
+
+\begin{vtimeline}[description={text width=8cm}, 
+ row sep=4ex,]
+1 April & Literature Review and algorithm selection\endlr
+3 April & Proposal Due\endlr
+5 April & Environment Completed\endlr
+21 April & Performance analysis: Benchmark the designed architecture with the already existing architectures.\endlr
+25 April & Further improvements and debugging.\endlr
+10 May & Documentation and report preparation.\endlr
+\end{vtimeline}
+\addcontentsline{toc}{sen=ction}{\refname}
+\section*{References}
+\small{
+}
+\end{document}
