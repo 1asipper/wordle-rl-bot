@@ -114,25 +114,34 @@ CSE, University at Buffalo\\
 
 \begin{document}
 \maketitle
-\begin{abstract}
-  Recently, the game Wordle, by Josh Wardle, has become quite popular. It is a game in which the player gets 6
-  guesses to determine a random 5 letter word. We propose development of a reinforcement learning model that will
-  be capable of playing the game.
-\end{abstract}
+
 \section{Introduction}
-Applying reinforcement learning techniques to solve games is a popular project topic . Reinforcement
-learning has also been used to solve Scrabble --- a game fundamentally similar to Wordle.
+Wordle, created by Josh Wardle, is a game in which the player has 6 guesses to attempt to
+guess a random 5 letter word. Every guess, each letter either returns as green, yellow, or
+gray. If its green, the letter is where it belongs in the word. If it's yellow, the letter
+is in the word, but in a different position. If its gray, the word doesn't contain the
+letter~\cite{wordlewiki}. Because it already has a built in reward structure our team thought
+it would be an interesting game to try to solve.
 
-There are existing automated solutions to Wordle, the most prominent of which being the 3 blue 1 brown solution.
-There is also a Reinforcement Learning version that exists that uses DQN and A2C.
+\bigskip
 
-We intend to develop an OpenAI gym environment to train the agent in, and then create multiple agents to compare
-performance of different algorithms on this problem. Finally, just for fun, we will attempt to create a wrapper
-that makes the agent able to play the acutal Wordle game on the website, as well as clones of the game.
+Applying reinforcement learning techniques to solve games is something that the team at
+Deep Mind has done multiple times~\cite{dota}. Reinforcement learning has also been applied
+to solve Scrabble~\cite{scrabble} --- a game fundamentally similar to Wordle.
+There are existing programatic solutions to Wordle, the most prominent of which being the 3
+blue 1 brown solution~\cite{solver1}.
+There is also a Reinforcement Learning version that exists that uses DQN and
+A2C~\cite{solver2}. This reinforcement learning solver was trained on \textbf{???}
+
+\bigskip
+
+We intend to develop an OpenAI gym environment to train the agent in, and then create
+multiple agents to compare performance of different algorithms on this problem. If time
+allows, we will compare not only our own implementations, but some of the solutions using
+traditional NLP methods.
 
 \section{Project timeline}
-
-\begin{vtimeline}[description={text width=8cm}, 
+\begin{vtimeline}[description={text width=8cm},
  row sep=4ex,]
 1 April & Literature Review and algorithm selection\endlr
 3 April & Proposal Due\endlr
@@ -144,6 +153,6 @@ that makes the agent able to play the acutal Wordle game on the website, as well
 \end{vtimeline}
 \addcontentsline{toc}{sen=ction}{\refname}
 \section*{References}
-\small{
-}
+\bibliographystyle{plain}
+\bibliography{refs}
 \end{document}
