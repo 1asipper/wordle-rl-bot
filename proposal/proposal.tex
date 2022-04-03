@@ -123,17 +123,18 @@ is in the word, but in a different position. If its gray, the word doesn't conta
 letter~\cite{wordlewiki}. Because it already has a built in reward structure our team thought
 it would be an interesting game to try to solve.
 
-\bigskip
+%\bigskip
 
 Applying reinforcement learning techniques to solve games is something that the team at
-Deep Mind has done multiple times~\cite{dota}. Reinforcement learning has also been applied
+Deep Mind has done multiple times~\cite{dota}~\cite{atari}~\cite{alphago}. Reinforcement learning has also been applied
 to solve Scrabble~\cite{scrabble} --- a game fundamentally similar to Wordle.
 There are existing programatic solutions to Wordle, the most prominent of which being the 3
-blue 1 brown solution~\cite{solver1}.
+blue 1 brown solution that is based on entropy minimization~\cite{solver1}.
 There is also a Reinforcement Learning version that exists that uses DQN and
-A2C~\cite{solver2}. This reinforcement learning solver was trained on \textbf{???}
+A2C~\cite{solver2}. This reinforcement learning solver was trained by continually increasing
+the vocabulary that the bot ``knew'' until it had an entire dictionary in it.
 
-\bigskip
+%\bigskip
 
 We intend to develop an OpenAI gym environment to train the agent in, and then create
 multiple agents to compare performance of different algorithms on this problem. If time
